@@ -1,0 +1,291 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="content">
+        <f:view encoding="UTF-8" contentType="text/html" locale="#{localeBean.locale}">
+            <h:form id="form">
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <div class="Card ShadowEffect">
+                            <p:messages id="Messages" closable="true" showIcon="true" autoUpdate="true"/>
+
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <p:dataTable id="customers" var="customer"
+                                                 value="#{dataDiscoveryBean.customers}"
+                                                 widgetVar="customersTable"
+                                                 filteredValue="#{dataDiscoveryBean.filteredCustomers}"
+                                                 rows="10" paginator="true" paginatorPosition="bottom" lazy="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 paginatorAlwaysVisible="true" rowsPerPageTemplate="5, 10, 15, 20"
+                                                 emptyMessage="#{i18n.noResults}" reflow="true"
+                                                 rowStyleClass="TexAlCenter"
+                                                 selectionMode="single"
+                                                 selection="#{dataDiscoveryBean.selectedCustomer}"
+                                                 rowKey="#{customer.number}">
+
+                                        <f:facet name="header">
+                                            #{i18n.customers}
+                                        </f:facet>
+
+                                        <p:ajax event="rowSelect"
+                                                listener="#{dataDiscoveryBean.productsBySelectedCustomer()}"
+                                                update=":form:productDetail"
+                                                oncomplete="PF('productDialog').show()"/>
+
+                                        <p:column width="16">
+                                            <p:rowToggler/>
+                                        </p:column>
+
+                                        <p:column headerText="#{i18n.customerName}"
+                                                  filterBy="#{customer.name}"
+                                                  filterMatchMode="contains"
+                                                  sortBy="#{customer.name}">
+                                            <h:outputText value="#{customer.name}"/>
+                                        </p:column>
+
+                                        <p:column headerText="#{i18n.contactName}"
+                                                  filterBy="#{customer.contactFullName}"
+                                                  filterMatchMode="contains"
+                                                  sortBy="#{customer.contactFirstName}">
+                                            <h:outputText value="#{customer.contactFullName}"/>
+                                        </p:column>
+
+                                        <p:column headerText="#{i18n.phone}"
+                                                  filterBy="#{customer.phone}"
+                                                  filterMatchMode="contains"
+                                                  sortBy="#{customer.phone}">
+                                            <h:outputText value="#{customer.phone}"/>
+                                        </p:column>
+
+                                        <p:column headerText="#{i18n.creditLimit}"
+                                                  filterBy="#{customer.creditLimit}"
+                                                  filterMatchMode="contains"
+                                                  sortBy="#{customer.creditLimit}">
+                                            <h:outputText value="#{customer.creditLimit}"
+                                                          converter="javax.faces.BigDecimal">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#{i18n.salesRep}"
+                                                  filterBy="#{customer.salesRepresentative.fullName}"
+                                                  filterMatchMode="contains"
+                                                  sortBy="#{customer.salesRepresentative.firstName}">
+                                            <h:outputText styleClass="Label LabelSuccess"
+                                                          value="#{customer.salesRepresentative.fullName}"
+                                                          rendered="#{customer.salesRepresentative ne null}"/>
+                                        </p:column>
+
+                                        <p:rowExpansion>
+                                            <p:panelGrid>
+                                                <f:facet name="header">
+                                                    <p:row>
+                                                        <p:column colspan="6">#{i18n.address}</p:column>
+                                                    </p:row>
+
+                                                    <p:row>
+                                                        <p:column>#{i18n.addressLine1}</p:column>
+                                                        <p:column>#{i18n.addressLine2}</p:column>
+                                                        <p:column>#{i18n.city}</p:column>
+                                                        <p:column>#{i18n.state}</p:column>
+                                                        <p:column>#{i18n.postalCode}</p:column>
+                                                        <p:column>#{i18n.country}</p:column>
+                                                    </p:row>
+                                                </f:facet>
+
+                                                <p:row styleClass="TexAlCenter">
+                                                    <p:column>#{customer.firstAddressLine}</p:column>
+                                                    <p:column>#{customer.secondAddressLine}</p:column>
+                                                    <p:column>#{customer.city}</p:column>
+                                                    <p:column>#{customer.state}</p:column>
+                                                    <p:column>#{customer.postalCode}</p:column>
+                                                    <p:column>#{customer.country}</p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:rowExpansion>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p:dialog id="productsDialog"
+                          styleClass="dialogs"
+                          header="#{i18n.orderedProducts}"
+                          widgetVar="productDialog"
+                          modal="true" showEffect="fade" hideEffect="fade"
+                          resizable="false" responsive="true">
+                    <p:outputPanel id="productDetail" style="text-align:center;">
+                        <p:dataTable id="orderedProducts" var="product"
+                                     value="#{dataDiscoveryBean.orderedProducts}"
+                                     widgetVar="productsTable"
+                                     rows="5" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     paginatorAlwaysVisible="true" rowsPerPageTemplate="5"
+                                     emptyMessage="#{i18n.noResults}" reflow="true" rowStyleClass="TexAlCenter"
+                                     selectionMode="single"
+                                     selection="#{dataDiscoveryBean.selectedProduct}"
+                                     rowKey="#{product.code}">
+
+                            <f:facet name="header">
+                                #{i18n.products}
+                            </f:facet>
+
+                            <p:ajax event="rowSelect"
+                                    listener="#{dataDiscoveryBean.ordersBySelectedProduct()}"
+                                    update=":form:orderDetail"
+                                    oncomplete="PF('orderDialog').show()"/>
+
+                            <p:column headerText="#{i18n.code}"
+                                      sortBy="#{product.code}">
+                                <h:outputText value="#{product.code}"/>
+                                <p:outputLabel id="productCode">
+                                    <i class="fa fa-question-circle"/>
+                                </p:outputLabel>
+                                <p:tooltip for="productCode" value="#{product.description}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.name}"
+                                      sortBy="#{product.name}">
+                                <h:outputText value="#{product.name}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.line}"
+                                      sortBy="#{product.productLines.productLine}">
+                                <h:outputText value="#{product.productLines.productLine}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.scale}"
+                                      sortBy="#{product.scale}">
+                                <h:outputText value="#{product.scale}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.vendor}"
+                                      sortBy="#{product.vendor}">
+                                <h:outputText value="#{product.vendor}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.quantityInStock}"
+                                      sortBy="#{product.quantityInStock}">
+                                <h:outputText value="#{product.quantityInStock}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.buyPrice}"
+                                      sortBy="#{product.buyPrice}">
+                                <h:outputText value="#{product.buyPrice}"
+                                              converter="javax.faces.BigDecimal">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.msrp}"
+                                      sortBy="#{product.MSRP}">
+                                <h:outputText value="#{product.MSRP}"
+                                              converter="javax.faces.BigDecimal">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </p:outputPanel>
+                </p:dialog>
+
+
+                <p:dialog id="orderDialog" style="overflow: auto"
+                          styleClass="dialogs"
+                          header="#{i18n.orderDetails}"
+                          widgetVar="orderDialog"
+                          modal="true" showEffect="fade" hideEffect="fade"
+                          resizable="false" responsive="true">
+
+                    <p:outputPanel id="orderDetail" style="text-align:center;">
+                        <p:dataTable id="orderDetails" var="order"
+                                     value="#{dataDiscoveryBean.orders}"
+                                     widgetVar="ordersTable"
+                                     rows="5" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     paginatorAlwaysVisible="true" rowsPerPageTemplate="5"
+                                     emptyMessage="#{i18n.noResults}" reflow="true" rowStyleClass="TexAlCenter"
+                                     rowKey="#{order.number}">
+
+                            <f:facet name="header">
+                                #{i18n.orders}
+                            </f:facet>
+
+                            <p:column width="16">
+                                <p:rowToggler/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.orderNumber}"
+                                      sortBy="#{order.number}">
+                                <h:outputText value="#{order.number}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.orderDate}"
+                                      sortBy="#{order.orderDate}">
+                                <h:outputText value="#{order.orderDate}"
+                                              converter="localDateConverter"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.requiredDate}"
+                                      sortBy="#{order.requiredDate}">
+                                <h:outputText value="#{order.requiredDate}"
+                                              converter="localDateConverter"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.shippedDate}"
+                                      sortBy="#{order.shippedDate}">
+                                <h:outputText value="#{order.shippedDate}"
+                                              converter="localDateConverter"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.orderStatus}"
+                                      sortBy="#{order.status}">
+                                <h:outputText value="#{order.status}"/>
+                            </p:column>
+
+                            <p:column headerText="#{i18n.comments}"
+                                      sortBy="#{order.comments}">
+                                <h:outputText value="#{order.comments}"/>
+                            </p:column>
+
+                            <p:rowExpansion>
+                                <p:panelGrid>
+                                    <f:facet name="header">
+                                        <p:row>
+                                            <p:column colspan="3">#{i18n.orderDetails}</p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column>#{i18n.quantityOrdered}</p:column>
+                                            <p:column>#{i18n.priceEach}</p:column>
+                                            <p:column>#{i18n.orderLineNumber}</p:column>
+                                        </p:row>
+                                    </f:facet>
+
+                                    <ui:repeat value="#{order.orderDetailsList}" var="details">
+                                        <p:row styleClass="TexAlCenter">
+                                            <p:column>#{details.quantityOrdered}</p:column>
+                                            <p:column>
+                                                <h:outputText value="#{details.priceEach}"
+                                                              converter="javax.faces.BigDecimal">
+                                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column>#{details.orderLineNumber}</p:column>
+                                        </p:row>
+                                    </ui:repeat>
+                                </p:panelGrid>
+                            </p:rowExpansion>
+                        </p:dataTable>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>

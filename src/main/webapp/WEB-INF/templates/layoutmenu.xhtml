@@ -1,0 +1,51 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pr="http://primefaces.org/rio"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="formMenu">
+        <div class="Animated05" id="layout-menu-cover">
+            <ul class="layout-menu">
+                <li>
+                    <a class="menulink ripplelink">
+                        <i class="icon-round58 Fs40"></i>
+	                    <span class="Fs18">#{loginBean.username}<i class="icon-downwards Fright Fs20"></i>
+	                    	<br/> <span class="Fs12 FontRobotoLight">#{loginBean.roles}</span>
+	                    </span>
+                    </a>
+                    <ul>
+                        <li>
+                            <p:commandLink
+                                    value="Logout" ajax="false"
+                                    onclick="this.action='#{request.contextPath}/logout';"/>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="Separator"/>
+
+            <pr:menu>
+
+                <p:menuitem id="dashboardItem"
+                            value="#{i18n.dashboard}"
+                            outcome="#{pagesBean.dashboard()}"
+                            icon="icon-globe"/>
+
+                <p:menuitem id="customersItem"
+                            value="#{i18n.customers}"
+                            outcome="#{pagesBean.customers()}"
+                            icon="icon-users"/>
+
+                <p:menuitem id="dataDiscoveryItem"
+                            value="#{i18n.dataDiscovery}"
+                            outcome="/html/data-discovery.xhtml"
+                            icon="icon-forbid-1"/>
+
+            </pr:menu>
+
+        </div>
+    </h:form>
+</ui:composition>

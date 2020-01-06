@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+    </f:facet>
+    <title>#{i18n.title}</title>
+</h:head>
+
+<h:body styleClass="loginbodyblue">
+    <f:view encoding="UTF-8" contentType="text/html" locale="#{localeBean.locale}">
+        <h:form prependId="false">
+            <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+                <div class="Wid33 MarAuto WidAutoOnMobile">
+                    <div class="EmptyBox30"></div>
+                    <p:messages id="messages" closable="true" showIcon="true" autoUpdate="true"/>
+                    <div class="Card ShadowEffect">
+                        <div class="EmptyBox20"></div>
+                        <div class="Wid100 OvHidden BigTopic Fs30"><i class="icon-car146 Fs30"></i> #{i18n.loginPanel}</div>
+                        <div class="Wid100">
+                            <p:outputLabel value="Login failed!" styleClass="red"
+                                           rendered="${!empty param['error']}"/>
+                            <p:inputText id='username'
+                                         styleClass="Wid80 TexAlCenter Fs18"
+                                         name='username'
+                                         placeholder="#{i18n.username}"
+                                         required="true"/>
+                        </div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Wid100">
+                            <p:password id='password'
+                                        styleClass="Wid80 TexAlCenter Fs18"
+                                        name='password'
+                                        placeholder="#{i18n.password}"
+                                        required="true"/>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                        <div class="Separator"></div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Wid100">
+                            <p:commandButton styleClass="Wid60 Fs18 White RaisedButton"
+                                             value="#{i18n.signin}"
+                                             ajax="false"
+                                             icon="fa fa-sign-in"/>
+                        </div>
+                        <div class="EmptyBox20"></div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </f:view>
+
+    <h:outputStylesheet name="css/core-layout.css" library="rio-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="rio-layout"/>
+    <h:outputStylesheet name="css/rio-font.css" library="rio-layout"/>
+    <h:outputStylesheet name="css/ripple-effect.css" library="rio-layout"/>
+    <h:outputStylesheet name="css/font-awesome.css" library="rio-layout"/>
+    <h:outputStylesheet name="css/rio-layout.css" library="rio-layout"/>
+    <h:outputStylesheet name="css/custom.css" library="rio-layout"/>
+</h:body>
+
+</html>
