@@ -1,5 +1,6 @@
-jsf:
-  PROJECT_STAGE: Development
+joinfaces:
+  jsf:
+    project-stage: Development
   primefaces:
     theme: rio
 
