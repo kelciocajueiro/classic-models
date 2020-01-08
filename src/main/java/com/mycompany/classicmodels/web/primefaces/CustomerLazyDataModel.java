@@ -1,7 +1,7 @@
 package com.mycompany.classicmodels.web.primefaces;
 
 import com.mycompany.classicmodels.domain.business.service.CustomerService;
-import com.mycompany.classicmodels.spi.dto.CustomerDTO;
+import com.mycompany.classicmodels.spi.dto.CustomerDto;
 import com.mycompany.classicmodels.spi.search.CustomerSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class CustomerLazyDataModel extends GenericLazyDataModel<CustomerDTO> {
+public class CustomerLazyDataModel extends GenericLazyDataModel<CustomerDto> {
 
     private static final long serialVersionUID = 1619255390843441197L;
 
@@ -25,19 +25,19 @@ public class CustomerLazyDataModel extends GenericLazyDataModel<CustomerDTO> {
     }
 
     @Override
-    protected List<CustomerDTO> fetch(Pageable pageable, Map<String, Object> filters) {
+    protected List<CustomerDto> fetch(Pageable pageable, Map<String, Object> filters) {
         return service.find(pageable, buildSearchCriteria(filters));
     }
 
     @Override
-    public CustomerDTO getRowData(String rowKey) {
+    public CustomerDto getRowData(String rowKey) {
         return null;
         //return repository.getOne(Long.parseLong(rowKey)); TODO: Fix this
     }
 
     @Override
-    public Object getRowKey(CustomerDTO customerDTO) {
-        return customerDTO.getNumber();
+    public Object getRowKey(CustomerDto customerDto) {
+        return customerDto.getNumber();
     }
 
     private CustomerSearchCriteria buildSearchCriteria(Map<String, Object> filters) {
