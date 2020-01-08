@@ -1,12 +1,13 @@
 package com.mycompany.classicmodels.domain.enums;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum OrderStatus {
 
     CANCELLED("Cancelled"),

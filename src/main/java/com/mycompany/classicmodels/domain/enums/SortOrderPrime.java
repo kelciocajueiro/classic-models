@@ -1,5 +1,6 @@
 package com.mycompany.classicmodels.domain.enums;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.primefaces.model.SortOrder;
@@ -7,7 +8,7 @@ import org.primefaces.model.SortOrder;
 import java.util.Arrays;
 import java.util.Objects;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum SortOrderPrime {
 
     ASCENDING(SortOrder.ASCENDING, "asc"),
