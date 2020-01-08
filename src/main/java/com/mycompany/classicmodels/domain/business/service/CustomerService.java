@@ -4,7 +4,7 @@ import com.mycompany.classicmodels.domain.business.mapper.CustomerMapper;
 import com.mycompany.classicmodels.domain.business.predicates.CustomerPredicates;
 import com.mycompany.classicmodels.domain.model.entity.Customer;
 import com.mycompany.classicmodels.domain.repository.CustomerRepository;
-import com.mycompany.classicmodels.spi.dto.CustomerDTO;
+import com.mycompany.classicmodels.spi.dto.CustomerDto;
 import com.mycompany.classicmodels.spi.search.CustomerSearchCriteria;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
@@ -26,11 +26,11 @@ public class CustomerService {
         return repository.count(buildQuery(criteria));
     }
 
-    public List<CustomerDTO> find(Pageable pageable, CustomerSearchCriteria criteria) {
+    public List<CustomerDto> find(Pageable pageable, CustomerSearchCriteria criteria) {
 
         Page<Customer> page = repository.findAll(buildQuery(criteria), pageable);
 
-        return mapDTOs(page.getContent());
+        return mapDtos(page.getContent());
     }
 
     private Predicate buildQuery(CustomerSearchCriteria criteria) {
@@ -61,13 +61,13 @@ public class CustomerService {
 
     }
 
-    private List<CustomerDTO> mapDTOs(List<Customer> customers) {
+    private List<CustomerDto> mapDtos(List<Customer> customers) {
 
         CustomerMapper mapper = CustomerMapper.INSTANCE;
 
-        List<CustomerDTO> result = new ArrayList<>();
+        List<CustomerDto> result = new ArrayList<>();
 
-        customers.forEach(customer -> result.add(mapper.toDTO(customer)));
+        customers.forEach(customer -> result.add(mapper.toCustomerDto(customer)));
 
         return result;
 

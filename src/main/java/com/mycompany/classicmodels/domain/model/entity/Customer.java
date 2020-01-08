@@ -68,8 +68,4 @@ public class Customer {
     @OneToMany(mappedBy = "id.customer")
     private List<Payment> paymentList;
 
-    public String getContactFullName() {
-        return String.format("%s %s", contactFirstName, contactLastName);
-    }
-
 }
