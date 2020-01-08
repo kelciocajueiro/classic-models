@@ -4,6 +4,7 @@ Classic Models is a software which scale models of a classic cars database. It c
 
 ## Technologies
 
+* Java 8
 * JoinFaces 4
 * Spring Boot 2.2.1 (Spring Data, Security)
 * Primefaces 7.0
