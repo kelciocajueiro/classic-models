@@ -40,6 +40,7 @@ You can get more information and download a base version of the database here: [
 
 ## Next steps
 
+* Finish this monolithic application
 * Add an User/Role/Permission feature to the application
 * Create a REST API version (another project)
 * Implement a CI/CD structure
