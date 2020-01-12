@@ -22,6 +22,9 @@ public class CustomerService {
     @Autowired
     private CustomerRepository repository;
 
+    @Autowired
+    private CustomerMapper mapper;
+
     public long count(CustomerSearchCriteria criteria) {
         return repository.count(buildQuery(criteria));
     }
@@ -62,8 +65,6 @@ public class CustomerService {
     }
 
     private List<CustomerDto> mapDtos(List<Customer> customers) {
-
-        CustomerMapper mapper = CustomerMapper.INSTANCE;
 
         List<CustomerDto> result = new ArrayList<>();
 

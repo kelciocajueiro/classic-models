@@ -4,7 +4,7 @@ import com.mycompany.classicmodels.domain.model.entity.Address;
 import com.mycompany.classicmodels.spi.dto.AddressDto;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface AddressMapper {
 
     AddressDto toAddressDto(Address address);
