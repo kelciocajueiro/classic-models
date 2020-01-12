@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class CustomerDto {
 
     private Long number;
-    private String nome;
+    private String name;
     private String contactFirstName;
     private String contactLastName;
     private String phone;
