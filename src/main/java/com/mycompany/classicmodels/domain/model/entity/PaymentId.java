@@ -19,7 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-class PaymentId implements Serializable {
+public class PaymentId implements Serializable {
 
     private static final long serialVersionUID = 1918665652698204645L;
 
