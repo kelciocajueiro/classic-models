@@ -16,6 +16,7 @@ public class CustomerDto {
     private String phone;
     private AddressDto address;
     private BigDecimal creditLimit;
+    private EmployeeDto salesRepresentative;
 
     public String getContactFullName() {
         return String.format("%s %s", contactFirstName, contactLastName);
