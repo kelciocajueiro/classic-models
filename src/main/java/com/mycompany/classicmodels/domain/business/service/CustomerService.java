@@ -68,7 +68,7 @@ public class CustomerService {
 
         List<CustomerDto> result = new ArrayList<>();
 
-        customers.forEach(customer -> result.add(mapper.toCustomerDto(customer)));
+        customers.forEach(customer -> result.add(mapper.toDto(customer)));
 
         return result;
 
