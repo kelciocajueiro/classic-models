@@ -65,8 +65,4 @@ public class Employee {
     @JoinColumn(name = "officeCode")
     private Office office;
 
-    public String getFullName() {
-        return String.format("%s %s", firstName, lastName);
-    }
-
 }
