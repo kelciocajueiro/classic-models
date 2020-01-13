@@ -4,11 +4,11 @@ import com.mycompany.classicmodels.domain.model.entity.Customer;
 import com.mycompany.classicmodels.spi.dto.CustomerDto;
 import org.mapstruct.Mapper;
 
-@Mapper(uses = AddressMapper.class)
+@Mapper(uses = { AddressMapper.class, EmployeeMapper.class })
 public interface CustomerMapper {
 
-    CustomerDto toCustomerDto(Customer customer);
+    CustomerDto toDto(Customer entity);
 
-    Customer toCustomer(CustomerDto dto);
+    Customer toEntity(CustomerDto dto);
 
 }

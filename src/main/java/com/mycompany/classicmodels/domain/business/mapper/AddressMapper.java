@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface AddressMapper {
 
-    AddressDto toAddressDto(Address address);
+    AddressDto toDto(Address entity);
 
-    Address toAddress(AddressDto dto);
+    Address toEntity(AddressDto dto);
 
 }
