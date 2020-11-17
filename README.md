@@ -42,6 +42,7 @@ You can get more information and download a base version of the database here: [
 
 * Finish this monolithic application
 * Add an User/Role/Permission feature to the application
+* Add Docker
 * Implement a CI/CD structure
 * Create a REST API version (another project)
 * Create a Angular client
