@@ -35,6 +35,11 @@ The MySQL sample database schema consists of the following tables:
 
 You can get more information and download a base version of the database here: [MySQL Sample Database](https://www.mysqltutorial.org/mysql-sample-database.aspx)
 
+## How to Access
+Link: https://classic-models.herokuapp.com/
+Username: Test1
+Password: test1@mytest.com
+
 ## How to Build
 **Under construction**
 
