@@ -42,7 +42,6 @@ You can get more information and download a base version of the database here: [
 
 * Finish this monolithic application
 * Add an User/Role/Permission feature to the application
-* Create a REST API version (another project)
 * Implement a CI/CD structure
-* Create a React client
-* Create a React Native app
+* Create a REST API version (another project)
+* Create a Angular client
